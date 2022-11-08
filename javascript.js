@@ -22,10 +22,10 @@ function Book(title, author, pages, read) {
     return status;
   }
   
-  function addBookToLibrary (title, author, pages, read) {
-    const book = new Book(title, author, pages, read);
-    myLibrary.push(book);
-  }
+  // function addBookToLibrary (title, author, pages, read) {
+  //   const book = new Book(title, author, pages, read);
+  //   myLibrary.push(book);
+  // }
 
   function createTableRowAndCells () {
     const tableRow = document.createElement("tr");
@@ -59,6 +59,25 @@ function Book(title, author, pages, read) {
         booksUnreadTable.appendChild(display.row);
       }
     })
+  }
+
+  function showForm () {
+    document.querySelector("form").classList.toggle("hidden");
+    document.querySelector("form").classList.toggle("show");
+  }
+
+  function addBookToLibrary () {
+    showForm();
+    // Remove "ADD BOOK" button
+    document.querySelector("#add-book").remove();
+    // Create and display "SUBMIT" and "CANCEL" button
+    const submit = document.createElement("button");
+    const cancel = document.createElement("button");
+    submit.textContent = "SUBMIT";
+    cancel.textContent = "CANCEL";
+    document.querySelector("body").insertBefore(submit, document.querySelector("form"));
+    document.querySelector("body").insertBefore(cancel, document.querySelector("form"));
+
   }
 
   const booksReadTable = document.querySelector("#books-read");
