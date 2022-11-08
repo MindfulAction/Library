@@ -27,31 +27,42 @@ function Book(title, author, pages, read) {
     myLibrary.push(book);
   }
 
-  function displayBooks {
+  function createTableRowAndCells () {
+    const tableRow = document.createElement("tr");
+    const tableTitleCell = document.createElement("td");
+    const tableAuthorCell = document.createElement("td");
+    const tablePageCountCell = document.createElement("td");
+    const tableRowAndCells = {
+      row : tableRow,
+      title : tableTitleCell,
+      author : tableAuthorCell,
+      pages : tablePageCountCell
+    }
+    return tableRowAndCells;
+  }
+
+  function displayBooks () {
     myLibrary.forEach(book => {
-      const newRow = document.createElement("tr");
-      const newTitle = document.createElement("td");
-      const newAuthor = document.createElement("td");
-      const newPages = document.createElement("td");
+      const display = createTableRowAndCells();
+      
+      display.title.textContent = book.title;
+      display.author.textContent = book.author;
+      display.pages.textContent = book.pages;
 
-      newTitle.textContent = book.title;
-      newAuthor.textContent = book.author;
-      newPages.textContent = book.pages;
-
-      newRow.appendChild(newTitle);
-      newRow.appendChild(newAuthor);
-      newRow.appendChild(newPages);
+      display.row.appendChild(display.title);
+      display.row.appendChild(display.author);
+      display.row.appendChild(display.pages);
 
       if (book.read) {
-        booksRead.appendChild(newRow);
+        booksReadTable.appendChild(display.row);
       } else {
-        booksRead.appendChild(newRow);
+        booksUnreadTable.appendChild(display.row);
       }
     })
   }
 
-  const booksRead = document.querySelector("#books-read");
-  const booksUnread = document.querySelector("#books-unread");
+  const booksReadTable = document.querySelector("#books-read");
+  const booksUnreadTable = document.querySelector("#books-unread");
 
   let myLibrary = [
     {
