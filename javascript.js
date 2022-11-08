@@ -27,7 +27,31 @@ function Book(title, author, pages, read) {
     myLibrary.push(book);
   }
 
-  
+  function displayBooks {
+    myLibrary.forEach(book => {
+      const newRow = document.createElement("tr");
+      const newTitle = document.createElement("td");
+      const newAuthor = document.createElement("td");
+      const newPages = document.createElement("td");
+
+      newTitle.textContent = book.title;
+      newAuthor.textContent = book.author;
+      newPages.textContent = book.pages;
+
+      newRow.appendChild(newTitle);
+      newRow.appendChild(newAuthor);
+      newRow.appendChild(newPages);
+
+      if (book.read) {
+        booksRead.appendChild(newRow);
+      } else {
+        booksRead.appendChild(newRow);
+      }
+    })
+  }
+
+  const booksRead = document.querySelector("#books-read");
+  const booksUnread = document.querySelector("#books-unread");
 
   let myLibrary = [
     {
