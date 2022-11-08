@@ -66,10 +66,13 @@ function Book(title, author, pages, read) {
     document.querySelector("form").classList.toggle("show");
   }
 
+  function removeAddBook () {
+    document.querySelector("#add-book").remove();
+  }
+
   function addBookToLibrary () {
     showForm();
-    // Remove "ADD BOOK" button
-    document.querySelector("#add-book").remove();
+    removeAddBook();
     // Create and display "SUBMIT" and "CANCEL" button
     const submit = document.createElement("button");
     const cancel = document.createElement("button");
