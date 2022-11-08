@@ -70,15 +70,23 @@ function Book(title, author, pages, read) {
     document.querySelector("#add-book").remove();
   }
 
+  function displaySubmitButton () {
+    const submit = document.createElement("button");
+    submit.textContent = "SUBMIT";
+    document.querySelector("body").insertBefore(submit, document.querySelector("form"));
+  }
+
+
   function addBookToLibrary () {
     showForm();
     removeAddBook();
+    displaySubmitButton();
     // Create and display "SUBMIT" and "CANCEL" button
-    const submit = document.createElement("button");
+    
     const cancel = document.createElement("button");
-    submit.textContent = "SUBMIT";
+    
     cancel.textContent = "CANCEL";
-    document.querySelector("body").insertBefore(submit, document.querySelector("form"));
+    
     document.querySelector("body").insertBefore(cancel, document.querySelector("form"));
 
   }
