@@ -27,10 +27,19 @@ function Book(title, author, pages, read) {
     myLibrary.push(book);
   }
 
-  // function displayBooks {
-  //   myLibrary.forEach(book => {
+  
 
-  //   })
-  // }
-
-  let myLibrary = [];
+  let myLibrary = [
+    {
+      title : "Test title",
+      author : "this author",
+      pages : 100,
+      read : true
+    } ,
+    {
+      title : "Test title 2",
+      author : "that AUTHOR",
+      pages : 200,
+      read : false,
+    }
+  ];
