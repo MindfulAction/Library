@@ -1,4 +1,4 @@
-// Need to create displayBooks function & table elements for HTML that will display the books
+// Need to implement form functionality 
 
 // Constructor function for creating new book
 function Book(title, author, pages, read) {
@@ -66,7 +66,7 @@ function Book(title, author, pages, read) {
     document.querySelector("form").classList.toggle("show");
   }
 
-  function removeAddBook () {
+  function removeAddBookButton () {
     document.querySelector("#add-book").remove();
   }
 
@@ -85,7 +85,7 @@ function Book(title, author, pages, read) {
 
   function addBookToLibrary () {
     showForm();
-    removeAddBook();
+    removeAddBookButton();
     displaySubmitButton();
     displayCancelButton();
 
