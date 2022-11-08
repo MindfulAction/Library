@@ -76,18 +76,18 @@ function Book(title, author, pages, read) {
     document.querySelector("body").insertBefore(submit, document.querySelector("form"));
   }
 
+  function displayCancelButton () {
+    const cancel = document.createElement("button");
+    cancel.textContent = "CANCEL";
+    document.querySelector("body").insertBefore(cancel, document.querySelector("form"));
+  }
+
 
   function addBookToLibrary () {
     showForm();
     removeAddBook();
     displaySubmitButton();
-    // Create and display "SUBMIT" and "CANCEL" button
-    
-    const cancel = document.createElement("button");
-    
-    cancel.textContent = "CANCEL";
-    
-    document.querySelector("body").insertBefore(cancel, document.querySelector("form"));
+    displayCancelButton();
 
   }
 
