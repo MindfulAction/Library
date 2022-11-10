@@ -70,9 +70,16 @@ function Book(title, author, pages, read) {
     document.querySelector("#add-book").remove();
   }
 
-  function displaySubmitButton () {
+  function createSubmitButton () {
     const submit = document.createElement("button");
     submit.textContent = "SUBMIT";
+    submit.setAttribute("form", "form")
+    submit.setAttribute("onClick", )
+    return submit;
+  }
+
+  function displaySubmitButton () {
+    const submit = createSubmitButton();
     document.querySelector("body").insertBefore(submit, document.querySelector("form"));
   }
 
@@ -83,12 +90,11 @@ function Book(title, author, pages, read) {
   }
 
 
-  function addBookToLibrary () {
+  function showNewBookDisplay () {
     showForm();
     removeAddBookButton();
     displaySubmitButton();
     displayCancelButton();
-
   }
 
   const booksReadTable = document.querySelector("#books-read");
