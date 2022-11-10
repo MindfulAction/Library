@@ -74,7 +74,7 @@ function Book(title, author, pages, read) {
     const submit = document.createElement("button");
     submit.textContent = "SUBMIT";
     submit.setAttribute("form", "form")
-    submit.setAttribute("onClick", )
+    // submit.setAttribute("onClick", )
     return submit;
   }
 
@@ -83,9 +83,14 @@ function Book(title, author, pages, read) {
     document.querySelector("body").insertBefore(submit, document.querySelector("form"));
   }
 
-  function displayCancelButton () {
+  function createCancelButton () {
     const cancel = document.createElement("button");
     cancel.textContent = "CANCEL";
+    return cancel;
+  }
+
+  function displayCancelButton () {
+    const cancel = createCancelButton();
     document.querySelector("body").insertBefore(cancel, document.querySelector("form"));
   }
 
