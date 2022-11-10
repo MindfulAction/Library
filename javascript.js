@@ -61,21 +61,20 @@ function Book(title, author, pages, read) {
     })
   }
 
-  function showForm () {
-    document.querySelector("form").classList.toggle("hidden");
-    document.querySelector("form").classList.toggle("show");
-  }
-
-  function removeAddBookButton () {
-    document.querySelector("#add-book").remove();
-  }
-
   function createSubmitButton () {
     const submit = document.createElement("button");
     submit.textContent = "SUBMIT";
-    submit.setAttribute("form", "form")
-    // submit.setAttribute("onClick", )
+    submit.setAttribute("id", "submit")
+    submit.setAttribute("form", "form");
+    submit.onclick = function(e) {
+      e.preventDefault();
+      submitInput();
+    }
     return submit;
+  }
+
+  function toggleElementDisplay(button) {
+    button.classList.toggle("hidden");
   }
 
   function displaySubmitButton () {
@@ -86,7 +85,16 @@ function Book(title, author, pages, read) {
   function createCancelButton () {
     const cancel = document.createElement("button");
     cancel.textContent = "CANCEL";
+    cancel.setAttribute("id", "cancel")
+    cancel.onclick = function () {
+      resetForm()
+      toggleFormDisplay();
+    }
     return cancel;
+  }
+
+  function resetForm() {
+    document.querySelector("form").reset();
   }
 
   function displayCancelButton () {
@@ -96,26 +104,42 @@ function Book(title, author, pages, read) {
 
 
   function showNewBookDisplay () {
-    showForm();
-    removeAddBookButton();
+    toggleElementDisplay(document.querySelector("form"));
+    toggleElementDisplay(document.querySelector("#add-book"));
     displaySubmitButton();
     displayCancelButton();
+  }
+
+  function toggleFormDisplay () {
+    // Remove submit button
+    document.querySelector("#submit").remove();
+    // Remove cancel button
+    document.querySelector("#cancel").remove();
+    // Display Add book button
+    toggleElementDisplay(document.querySelector("#add-book"));
+    // Hide form
+    toggleElementDisplay(document.querySelector("form"));
+  }
+
+  function submitInput () {
+
+    // Store user input of book info
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
+    const read = document.getElementById("read").checked;
+    // Create new book obj
+    const book = new Book(title, author, pages, read);
+    // Add book to myLibrary array
+    myLibrary.push(book);
+
+    toggleFormDisplay();
+    // Reset form data
+    resetForm();
+    // Push book info to table
   }
 
   const booksReadTable = document.querySelector("#books-read");
   const booksUnreadTable = document.querySelector("#books-unread");
 
-  let myLibrary = [
-    {
-      title : "Test title",
-      author : "this author",
-      pages : 100,
-      read : true
-    } ,
-    {
-      title : "Test title 2",
-      author : "that AUTHOR",
-      pages : 200,
-      read : false,
-    }
-  ];
+  let myLibrary = [];
