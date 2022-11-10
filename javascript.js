@@ -41,33 +41,12 @@ function Book(title, author, pages, read) {
     return tableRowAndCells;
   }
 
-  function displayBooks () {
-    myLibrary.forEach(book => {
-      const display = createTableRowAndCells();
-      
-      display.title.textContent = book.title;
-      display.author.textContent = book.author;
-      display.pages.textContent = book.pages;
-
-      display.row.appendChild(display.title);
-      display.row.appendChild(display.author);
-      display.row.appendChild(display.pages);
-
-      if (book.read) {
-        booksReadTable.appendChild(display.row);
-      } else {
-        booksUnreadTable.appendChild(display.row);
-      }
-    })
-  }
-
   function createSubmitButton () {
-    const submit = document.createElement("button");
-    submit.textContent = "SUBMIT";
+    const submit = document.createElement("input");
     submit.setAttribute("id", "submit")
-    submit.setAttribute("form", "form");
-    submit.onclick = function(e) {
-      e.preventDefault();
+    submit.setAttribute("type", "submit");
+    submit.value = "SUBMIT";
+    submit.onclick = function() {
       submitInput();
     }
     return submit;
@@ -79,7 +58,7 @@ function Book(title, author, pages, read) {
 
   function displaySubmitButton () {
     const submit = createSubmitButton();
-    document.querySelector("body").insertBefore(submit, document.querySelector("form"));
+    document.querySelector("form").insertBefore(submit, document.querySelector("#title-label"));
   }
 
   function createCancelButton () {
@@ -120,9 +99,21 @@ function Book(title, author, pages, read) {
     // Hide form
     toggleElementDisplay(document.querySelector("form"));
   }
+*****************************************************************************// START HERE ON checkIfInputValid
+  // function checkIfInputValid () {
+  //   let requiredInputs = document.querySelectorAll(".required");
+  //   requiredInputs = Array.from(requiredInputs);
+  //   let invalidInputs = requiredInputs.filter(input => {
+  //     input.value == undefined;
+  //    })
+  //    if (invalidInputs != undefined) {
+  //     invalidInputs.for
+  //    }
+  // }
 
   function submitInput () {
-
+    // Check if input valid
+    checkIfInputValid();
     // Store user input of book info
     const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
@@ -134,9 +125,31 @@ function Book(title, author, pages, read) {
     myLibrary.push(book);
 
     toggleFormDisplay();
+    // Push book info to table
+    addBookToLibrary();
     // Reset form data
     resetForm();
-    // Push book info to table
+    
+      
+  }
+
+  function addBookToLibrary () {
+    // Create new row of for table
+    const display = createTableRowAndCells();
+    // Update table cells' textContent
+    display.title.textContent = document.getElementById("title").value;
+    display.author.textContent = document.getElementById("author").value;
+    display.pages.textContent = document.getElementById("pages").value;
+    // Add data cells to row
+    display.row.appendChild(display.title);
+    display.row.appendChild(display.author);
+    display.row.appendChild(display.pages);
+    // Determine which table to add book info to
+    if (document.getElementById("read").checked) {
+      booksReadTable.appendChild(display.row);
+    } else {
+      booksUnreadTable.appendChild(display.row);
+    }
   }
 
   const booksReadTable = document.querySelector("#books-read");
