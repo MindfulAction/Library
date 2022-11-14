@@ -49,6 +49,7 @@ table {
     justify-content: center;
     align-items: center;
     gap: 50px;
+    padding: 50px;
   }
 
   div {
@@ -59,12 +60,13 @@ table {
   }
 
   #submit {
-    background-color: mediumspringgreen;
+    background-color: #606C38;
+    color: #FEFAE0;
     font-weight: bold;
   }
 
   #cancel {
-    background-color: rgb(255, 204, 203);
+    background-color: #DDA15E;
     font-weight: bold;
   }
 
@@ -90,3 +92,15 @@ table {
     font-style: italic;
     text-decoration: underline;
   }
+
+  #add-book {
+    background-color: #606C38;
+    color: #FEFAE0;
+    font-weight: bold;
+  }
+
+  button, #submit {
+    border-radius: 5px;
+  }
+
+  

@@ -1,4 +1,4 @@
-// Need to style, add remove button to each book, add change read status button to each book
+// Need to style, add change read status button to each book
 
 // Constructor function for creating new book
 function Book(title, author, pages, read) {
