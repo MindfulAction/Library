@@ -100,30 +100,32 @@ function Book(title, author, pages, read) {
     // Hide form
     toggleElementDisplay(document.querySelector("form"));
   }
-  // START HERE ON checkIfInputValid
-  function checkIfInputValid () {
+  
+  function checkIfInputValid (e) { 
+  console.log(e)
+    if (e.path[0].value == "") {
+      e.path[0].classList.add("invalid");
+    } else {
+      e.path[0].classList.remove("invalid");
+    }
+  }
+
+  function checkIfAllInputsValid () {
     let requiredInputs = document.querySelectorAll(".required");
     requiredInputs = Array.from(requiredInputs);
-    const invalidInputs = requiredInputs.every(input => {
+    const isAllInputsValid = requiredInputs.every(input => {
       if (input.value == "") {
         return false;
       } else {
         return true;
       }
-     })
-     return invalidInputs;
-  }
-
-  function highlightInvalidInputs () {
-    const invalidInputs = document.querySelectorAll("input:invalid");
-      invalidInputs.forEach(input => {
-        input.classList.add(".invalid")
-      })
+    }) 
+    return isAllInputsValid;
   }
 
   function submitInput () {
-    const inputsValid = checkIfInputValid();
-    console.log("inputsValid is " + checkIfInputValid())
+    const inputsValid = checkIfAllInputsValid();
+    const invalidInputs = document.querySelectorAll("input:invalid");
     // Check if input valid
     if (inputsValid) {
       console.log("submitted")
@@ -142,11 +144,13 @@ function Book(title, author, pages, read) {
       addBookToLibrary();
       // Reset form data
       resetForm();
+      // Remove red borders from previously invalid inputs if needed
+      document.querySelectorAll(".invalid").forEach(input => input.classList.remove("invalid"));
     } else {
       console.log("not submitted")
-      const invalidInputs = document.querySelectorAll("input:invalid");
+      console.log(invalidInputs)
       invalidInputs.forEach(input => {
-        input.classList.add(".invalid")
+        input.classList.add("invalid")
       })
     }
     
@@ -172,6 +176,8 @@ function Book(title, author, pages, read) {
       booksUnreadTable.appendChild(display.row);
     }
   }
+
+  document.querySelectorAll(".required").forEach(input => input.addEventListener("focusout", checkIfInputValid))
 
   const booksReadTable = document.querySelector("#books-read");
   const booksUnreadTable = document.querySelector("#books-unread");
