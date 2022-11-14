@@ -1,4 +1,4 @@
-// Need to implement form functionality 
+// Need to style, add remove button to each book, add change read status button to each book
 
 // Constructor function for creating new book
 function Book(title, author, pages, read) {
@@ -20,23 +20,21 @@ function Book(title, author, pages, read) {
       status = "has NOT been read";
     }
     return status;
-  }
-  
-  // function addBookToLibrary (title, author, pages, read) {
-  //   const book = new Book(title, author, pages, read);
-  //   myLibrary.push(book);
-  // }
+  } 
 
   function createTableRowAndCells () {
     const tableRow = document.createElement("tr");
     const tableTitleCell = document.createElement("td");
     const tableAuthorCell = document.createElement("td");
     const tablePageCountCell = document.createElement("td");
+    // This td will house a remove book button
+    const tableRemoveBookButton = document.createElement("td");
     const tableRowAndCells = {
       row : tableRow,
       title : tableTitleCell,
       author : tableAuthorCell,
-      pages : tablePageCountCell
+      pages : tablePageCountCell,
+      removeButton : tableRemoveBookButton
     }
     return tableRowAndCells;
   }
@@ -59,7 +57,7 @@ function Book(title, author, pages, read) {
 
   function displaySubmitButton () {
     const submit = createSubmitButton();
-    document.querySelector("form").insertBefore(submit, document.querySelector("#title-label"));
+    document.querySelector(".container").appendChild(submit);
   }
 
   function createCancelButton () {
@@ -79,7 +77,7 @@ function Book(title, author, pages, read) {
 
   function displayCancelButton () {
     const cancel = createCancelButton();
-    document.querySelector("body").insertBefore(cancel, document.querySelector("form"));
+    document.querySelector(".container").appendChild(cancel);
   }
 
 
@@ -152,10 +150,24 @@ function Book(title, author, pages, read) {
       invalidInputs.forEach(input => {
         input.classList.add("invalid")
       })
+    }  
+  }
+
+  function addRemoveBookButton () {
+    // Create button
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    // data-id will be used to match button functionality to tr with same data-id value
+      // This data-id value will correspond with the Book objects index in myLibrary array
+    removeButton.setAttribute("data-id", myLibrary.length - 1);
+    removeButton.onclick = function () {
+      // Remove row from table
+      const row = document.querySelector(`[data-id="${removeButton.getAttribute("data-id")}"]`);
+      row.remove();
+      // Remove Book obj from myLibrary array
+      myLibrary.splice(Number(removeButton.getAttribute("data-id")), 1);
     }
-    
-    
-      
+    return removeButton;
   }
 
   function addBookToLibrary () {
@@ -165,10 +177,17 @@ function Book(title, author, pages, read) {
     display.title.textContent = document.getElementById("title").value;
     display.author.textContent = document.getElementById("author").value;
     display.pages.textContent = document.getElementById("pages").value;
+    // Add remove book button to last td
+    const removeBookButton = addRemoveBookButton ();
+    display.removeButton.appendChild(removeBookButton);
+    // Refer to row 160-161 notes
+    display.row.setAttribute("data-id", myLibrary.length - 1);
+    
     // Add data cells to row
     display.row.appendChild(display.title);
     display.row.appendChild(display.author);
     display.row.appendChild(display.pages);
+    display.row.appendChild(display.removeButton);
     // Determine which table to add book info to
     if (document.getElementById("read").checked) {
       booksReadTable.appendChild(display.row);
