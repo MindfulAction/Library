@@ -67,6 +67,7 @@ function Book(title, author, pages, read) {
     cancel.onclick = function () {
       resetForm()
       toggleFormDisplay();
+      removeClass("invalid")
     }
     return cancel;
   }
@@ -142,15 +143,18 @@ function Book(title, author, pages, read) {
       addBookToLibrary();
       // Reset form data
       resetForm();
-      // Remove red borders from previously invalid inputs if needed
-      document.querySelectorAll(".invalid").forEach(input => input.classList.remove("invalid"));
     } else {
       console.log("not submitted")
       console.log(invalidInputs)
       invalidInputs.forEach(input => {
         input.classList.add("invalid")
       })
+      alert("Please fill out required fields")
     }  
+  }
+
+  function removeClass (className) {
+    document.querySelectorAll(`.${className}`).forEach(input => input.classList.remove(`${className}`));
   }
 
   function addRemoveBookButton () {
