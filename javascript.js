@@ -46,14 +46,15 @@ function Book(title, author, pages, read) {
     submit.setAttribute("id", "submit")
     submit.setAttribute("type", "submit");
     submit.value = "SUBMIT";
-    submit.onclick = function() {
+    submit.onclick = function(e) {
+      e.preventDefault();
       submitInput();
     }
     return submit;
   }
 
-  function toggleElementDisplay(button) {
-    button.classList.toggle("hidden");
+  function toggleElementDisplay(element) {
+    element.classList.toggle("hidden");
   }
 
   function displaySubmitButton () {
@@ -99,36 +100,56 @@ function Book(title, author, pages, read) {
     // Hide form
     toggleElementDisplay(document.querySelector("form"));
   }
-*****************************************************************************// START HERE ON checkIfInputValid
-  // function checkIfInputValid () {
-  //   let requiredInputs = document.querySelectorAll(".required");
-  //   requiredInputs = Array.from(requiredInputs);
-  //   let invalidInputs = requiredInputs.filter(input => {
-  //     input.value == undefined;
-  //    })
-  //    if (invalidInputs != undefined) {
-  //     invalidInputs.for
-  //    }
-  // }
+  // START HERE ON checkIfInputValid
+  function checkIfInputValid () {
+    let requiredInputs = document.querySelectorAll(".required");
+    requiredInputs = Array.from(requiredInputs);
+    const invalidInputs = requiredInputs.every(input => {
+      if (input.value == "") {
+        return false;
+      } else {
+        return true;
+      }
+     })
+     return invalidInputs;
+  }
+
+  function highlightInvalidInputs () {
+    const invalidInputs = document.querySelectorAll("input:invalid");
+      invalidInputs.forEach(input => {
+        input.classList.add(".invalid")
+      })
+  }
 
   function submitInput () {
+    const inputsValid = checkIfInputValid();
+    console.log("inputsValid is " + checkIfInputValid())
     // Check if input valid
-    checkIfInputValid();
-    // Store user input of book info
-    const title = document.getElementById("title").value;
-    const author = document.getElementById("author").value;
-    const pages = document.getElementById("pages").value;
-    const read = document.getElementById("read").checked;
-    // Create new book obj
-    const book = new Book(title, author, pages, read);
-    // Add book to myLibrary array
-    myLibrary.push(book);
+    if (inputsValid) {
+      console.log("submitted")
+      // Store user input of book info
+      const title = document.getElementById("title").value;
+      const author = document.getElementById("author").value;
+      const pages = document.getElementById("pages").value;
+      const read = document.getElementById("read").checked;
+      // Create new book obj
+      const book = new Book(title, author, pages, read);
+      // Add book to myLibrary array
+      myLibrary.push(book);
 
-    toggleFormDisplay();
-    // Push book info to table
-    addBookToLibrary();
-    // Reset form data
-    resetForm();
+      toggleFormDisplay();
+      // Push book info to table
+      addBookToLibrary();
+      // Reset form data
+      resetForm();
+    } else {
+      console.log("not submitted")
+      const invalidInputs = document.querySelectorAll("input:invalid");
+      invalidInputs.forEach(input => {
+        input.classList.add(".invalid")
+      })
+    }
+    
     
       
   }
